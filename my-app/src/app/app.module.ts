@@ -7,6 +7,8 @@ import CurrentCityComponent from './current-city/current-city.component';
 import SearchBarComponent from './search-bar/search-bar.component';
 import {HttpClientModule} from '@angular/common/http';
 import { CitiesService } from './cities.service';
+import {FormsModule} from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { CitiesService } from './cities.service';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    NgbModule,
     HttpClientModule,
     AppRoutingModule
   ],

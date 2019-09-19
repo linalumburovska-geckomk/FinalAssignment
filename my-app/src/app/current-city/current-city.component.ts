@@ -23,7 +23,7 @@ class CurrentCityComponent implements OnInit {
   }
 
   getCityByParameter = (): void => {
-    this.cityService.getCityByParameter('Copenhagen')
+    this.cityService.getCityByParameter('Dubai')
       .subscribe((cityData: any) => {
         this.name = cityData.name;
         this.country = cityData.sys.country;

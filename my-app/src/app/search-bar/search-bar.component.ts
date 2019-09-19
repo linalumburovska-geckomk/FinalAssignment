@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CitiesService } from '../cities.service';
+import {Observable, of} from 'rxjs';
+import {catchError, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,41 +11,23 @@ import { CitiesService } from '../cities.service';
 })
 class SearchBarComponent implements OnInit {
 
-  userData: any[] = [];
-
-  lastkeydown1 = 0;
+  searchFailed = false;
 
   constructor(private citiesService: CitiesService) {
-    this.citiesService.getAllCountries().subscribe(
-      data => {
-        Object.assign(this.userData, data);
-      },
-      error => {
-        console.log('Something wrong here');
-      });
   }
 
-  getUserIdsFirstWay($event) {
-    const userId = (document.getElementById('userIdFirstWay') as HTMLInputElement).value;
-    this.userData = [];
-
-    if (userId.length > 2) {
-      if ($event.timeStamp - this.lastkeydown1 > 200) {
-        this.userData = this.searchFromArray(this.userData, userId);
-      }
-    }
-  }
-
-  searchFromArray(arr, regex) {
-    const matches = []
-    let i = 0;
-    for (i = 0; i < arr.length; i++) {
-      if (arr[i].match(regex)) {
-        matches.push(arr[i]);
-      }
-    }
-    return matches;
-  }
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      distinctUntilChanged(),
+      switchMap(term =>
+        this.citiesService.getAllCities(term).pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+    )
 
   ngOnInit(): void {
   }
