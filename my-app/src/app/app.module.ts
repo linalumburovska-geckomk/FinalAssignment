@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import CurrentCityComponent from './current-city/current-city.component';
 import SearchBarComponent from './search-bar/search-bar.component';
 import {HttpClientModule} from '@angular/common/http';
+import { CitiesService } from './cities.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CitiesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

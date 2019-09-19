@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CitiesService } from '../cities.service';
-import { WeatherModel } from '../weather.model';
-import {from} from 'rxjs';
-
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -12,19 +9,32 @@ import {from} from 'rxjs';
 })
 class CurrentCityComponent implements OnInit {
 
-  cityData: WeatherModel;
+  name: string;
+  country: string;
+  temp: number;
+  maxTemp: number;
+  minTemp: number;
+  humidity: number;
+  windSpeed: number;
+  weatherMain: string;
+  weatherDesc: string;
 
   constructor(private cityService: CitiesService) {
   }
 
-  // getCityData = (): void => {
-  //   this.cityService.getCityData()
-  //     .subscribe(cityData => this.cityData = cityData);
-  // }
-
   getCityByParameter = (): void => {
-    this.cityService.getCityByParameter('Paris')
-      .subscribe((cityData) => this.cityData = cityData);
+    this.cityService.getCityByParameter('Copenhagen')
+      .subscribe((cityData: any) => {
+        this.name = cityData.name;
+        this.country = cityData.sys.country;
+        this.temp = cityData.main.temp;
+        this.maxTemp = cityData.main.temp_max;
+        this.minTemp = cityData.main.temp_min;
+        this.humidity = cityData.main.humidity;
+        this.windSpeed = cityData.wind.speed;
+        this.weatherMain = cityData.weather[0].main;
+        this.weatherDesc = cityData.weather[0].description;
+      });
   }
 
   ngOnInit() {

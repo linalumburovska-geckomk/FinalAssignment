@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, of} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import {WeatherModel} from './weather.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +10,20 @@ export class CitiesService {
   appid: string;
 
   constructor(private http: HttpClient) {
-   this.basicUrl = '/api.openweathermap.org/data/2.5/weather?';
-   this.appid = 'f05d5db558629ff2ea35f683c7ccc7e5';
+    this.basicUrl = 'https://api.openweathermap.org/data/2.5/weather?';
+    this.appid = 'f05d5db558629ff2ea35f683c7ccc7e5';
   }
 
-  // getCityData = (): Observable<WeatherModel[]> => {
-  //   return of([{
-  //     name: 'Bitola'
-  //   }]);
-  // }
-
   getCityByParameter = (cityName: string): any => {
-    return this.http.get<WeatherModel>(this.basicUrl + 'q=+' + cityName + '&appid=' + this.appid).pipe();
+    const headers: HttpHeaders = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+    return this.http.get(this.basicUrl + 'q=+' + cityName + '&appid=' + this.appid + '&units=metric', {headers});
+  }
+
+  getAllCountries = (): any => {
+    const headers: HttpHeaders = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+    return this.http.get('https://api.printful.com/countries', { headers });
   }
 
 }

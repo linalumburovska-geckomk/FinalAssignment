@@ -1,5 +1,5 @@
 <div class="jumbotron text-center">
-  <h1>{{ cityData }}</h1>
+  <h1>{{ name }}, {{ country }}</h1>
 </div>
 
 <div class="container">
@@ -9,21 +9,29 @@
     </div>
   </div>
 
-  <div class="row mt-5">
-    <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+  <div class="row mt-5 w-75 mx-auto">
+    <div class="col">
+      <h3>Temperature</h3>
+        <p class="m-4 temperature"> {{ temp }} &#x2103;</p>
+        <hr class="w-75 ml-n3 mt-2">
+        <div>
+          <div class="dot position-absolute mt-n4 ml-3"></div>
+          <div>{{ minTemp }} &#x2103;</div>
+        </div>
+        <div class="position-absolute mt-n5 maxTemp">
+          <div class="dot "></div>
+          <div>{{ maxTemp }} &#x2103;</div>
+        </div>
+      <div class="row mt-4">
+        <span class="font-italic">Humidity:</span> <span class="ml-2"> {{ humidity }} % </span>
+      </div>
+      <div class="row mt-3">
+        <span class="font-italic">Wind speed:</span> <span class="ml-2"> {{ windSpeed }} km/h </span>
+      </div>
     </div>
-    <div class="col-sm-4">
-      <h3>Column 2</h3>
+    <div class="col">
+      <h4>{{ weatherMain }}, {{ weatherDesc }}</h4>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 3</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
     </div>
   </div>
 </div>
