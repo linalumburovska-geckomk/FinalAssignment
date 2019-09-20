@@ -8,5 +8,8 @@
          aria-label="Search"
   >
   <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
-  <button type="button" class="btn btn-info btn-rounded ml-4">Search</button>
+  <button type="button"
+          class="btn btn-info btn-rounded ml-4"
+          (click)="searchNewCity()"
+  >Search</button>
 </div>

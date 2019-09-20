@@ -16,7 +16,7 @@ class SearchBarComponent implements OnInit {
   constructor(private citiesService: CitiesService) {
   }
 
-  search = (text$: Observable<string>) =>
+  search = (text$: Observable<string>): any =>
     text$.pipe(
       distinctUntilChanged(),
       switchMap(term =>
@@ -28,6 +28,10 @@ class SearchBarComponent implements OnInit {
           }))
       ),
     )
+
+  searchNewCity = (): any => {
+    console.log(document.getElementById('typeahead-http').value);
+  }
 
   ngOnInit(): void {
   }
