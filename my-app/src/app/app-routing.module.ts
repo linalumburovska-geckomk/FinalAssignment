@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SelectedCityComponent } from './selected-city/selected-city.component';
+import {CurrentCityComponent} from './current-city/current-city.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: CurrentCityComponent },
+  { path: 'detail/:id', component: SelectedCityComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

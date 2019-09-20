@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CitiesService } from '../cities.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'current-city',
+  selector: 'app-current-city',
   templateUrl: './current-city.component.html',
   styleUrls: ['./current-city.component.css']
 })
-class CurrentCityComponent implements OnInit {
+export class CurrentCityComponent implements OnInit {
 
   name: string;
   country: string;
@@ -56,5 +55,3 @@ class CurrentCityComponent implements OnInit {
   }
 
 }
-
-export default CurrentCityComponent;

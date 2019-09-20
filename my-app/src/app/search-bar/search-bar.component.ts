@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CitiesService } from '../cities.service';
+import {CitiesService} from '../cities.service';
 import {Observable, of} from 'rxjs';
 import {catchError, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'search-bar',
+  selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit {
 
   searchFailed = false;
 
@@ -30,11 +29,11 @@ class SearchBarComponent implements OnInit {
     )
 
   searchNewCity = (): any => {
-    // console.log(document.getElementById('typeahead-http').value);
+    const inputValue = (document.getElementById('typeahead-http') as HTMLInputElement).value;
+    console.log(inputValue);
   }
 
   ngOnInit(): void {
   }
-}
 
-export default SearchBarComponent;
+}

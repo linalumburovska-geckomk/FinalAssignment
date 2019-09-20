@@ -5,7 +5,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <search-bar></search-bar>
+      <app-search-bar></app-search-bar>
     </div>
   </div>
 
@@ -14,16 +14,16 @@
   <div class="row mt-5 w-75 mx-auto">
     <div class="col">
       <h3 class="ml-5">Temperature</h3>
-        <p class="m-4 temperature"> {{ temp }} &#x2103;</p>
-        <hr class="w-75 ml-n3 mt-2">
-        <div>
-          <div class="dot position-absolute mt-n4 ml-3"></div>
-          <div>{{ minTemp }} &#x2103;</div>
-        </div>
-        <div class="position-absolute mt-n5 maxTemp">
-          <div class="dot "></div>
-          <div>{{ maxTemp }} &#x2103;</div>
-        </div>
+      <p class="m-4 temperature"> {{ temp }} &#x2103;</p>
+      <hr class="w-75 ml-n3 mt-2">
+      <div>
+        <div class="dot position-absolute mt-n4 ml-3"></div>
+        <div>{{ minTemp }} &#x2103;</div>
+      </div>
+      <div class="position-absolute mt-n5 maxTemp">
+        <div class="dot "></div>
+        <div>{{ maxTemp }} &#x2103;</div>
+      </div>
       <div class="row mt-4">
         <span class="font-italic">Humidity:</span> <span class="ml-2"> {{ humidity }} % </span>
       </div>
