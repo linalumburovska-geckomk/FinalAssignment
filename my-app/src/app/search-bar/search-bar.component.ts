@@ -30,7 +30,7 @@ class SearchBarComponent implements OnInit {
     )
 
   searchNewCity = (): any => {
-    console.log(document.getElementById('typeahead-http').value);
+    // console.log(document.getElementById('typeahead-http').value);
   }
 
   ngOnInit(): void {

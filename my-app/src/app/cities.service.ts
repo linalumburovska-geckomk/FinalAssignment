@@ -17,14 +17,11 @@ export class CitiesService {
   basicUrl: string;
   appid: string;
   allCities: string;
-  tmpLocation: string;
-  getName: string;
 
   constructor(private http: HttpClient) {
     this.basicUrl = 'https://api.openweathermap.org/data/2.5/weather?';
     this.appid = 'f05d5db558629ff2ea35f683c7ccc7e5';
     this.allCities = 'http://geodb-free-service.wirefreethought.com/v1/geo/cities';
-    this.tmpLocation = 'https://geoip-db.com/json/';
   }
 
   getAllCities(term: string): any {
@@ -42,9 +39,7 @@ export class CitiesService {
     return this.http.get(this.basicUrl + 'q=+' + cityName + '&appid=' + this.appid + '&units=metric', {headers});
   }
 
-  getTmpLocation = (): any => {
-    return this.http.get(this.tmpLocation).pipe(
-      map((response: any) => response.city)
-    );
+  getTmpLocation = (lat: number, long: number): any => {
+    return this.http.get(this.basicUrl + 'lat=' + lat + '&lon=' + long + '&appid=' + this.appid);
   }
 }

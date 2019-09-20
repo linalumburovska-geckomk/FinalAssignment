@@ -28,9 +28,17 @@ class CurrentCityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cityService.getTmpLocation()
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const long = position.coords.longitude;
+      this.getWeather(lat, long);
+    });
+  }
+
+  getWeather = (lat: number, long: number): any => {
+    this.cityService.getTmpLocation(lat, long)
       .subscribe((name: any ) => {
-        this.cityService.getCityByParameter(name)
+        this.cityService.getCityByParameter(name.name)
           .subscribe((cityData: any) => {
             this.name = cityData.name;
             this.country = cityData.sys.country;
