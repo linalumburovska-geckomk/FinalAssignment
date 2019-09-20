@@ -18,29 +18,33 @@ class CurrentCityComponent implements OnInit {
   windSpeed: number;
   weatherMain: string;
   weatherDesc: string;
+  currentCityName: string;
 
   constructor(private cityService: CitiesService) {
   }
 
   getCityByParameter = (): void => {
-    this.cityService.getCityByParameter('Skopje')
-      .subscribe((cityData: any) => {
-        this.name = cityData.name;
-        this.country = cityData.sys.country;
-        this.temp = cityData.main.temp;
-        this.maxTemp = cityData.main.temp_max;
-        this.minTemp = cityData.main.temp_min;
-        this.humidity = cityData.main.humidity;
-        this.windSpeed = cityData.wind.speed;
-        this.weatherMain = cityData.weather[0].main;
-        this.weatherDesc = cityData.weather[0].description;
-        const imgUrl: string  = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
-        document.getElementById('weatherImage').setAttribute('src', imgUrl);
-      });
+    // On click search call this function with the search city
   }
 
   ngOnInit() {
-    this.getCityByParameter();
+    this.cityService.getTmpLocation()
+      .subscribe((name: any ) => {
+        this.cityService.getCityByParameter(name)
+          .subscribe((cityData: any) => {
+            this.name = cityData.name;
+            this.country = cityData.sys.country;
+            this.temp = cityData.main.temp;
+            this.maxTemp = cityData.main.temp_max;
+            this.minTemp = cityData.main.temp_min;
+            this.humidity = cityData.main.humidity;
+            this.windSpeed = cityData.wind.speed;
+            this.weatherMain = cityData.weather[0].main;
+            this.weatherDesc = cityData.weather[0].description;
+            const imgUrl: string  = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
+            document.getElementById('weatherImage').setAttribute('src', imgUrl);
+          });
+      });
   }
 
 }
