@@ -12,14 +12,14 @@ export class SearchBarComponent implements OnInit {
 
   searchFailed = false;
 
-  constructor(private citiesService: CitiesService) {
+  constructor(private cityService: CitiesService) {
   }
 
   search = (text$: Observable<string>): any =>
     text$.pipe(
       distinctUntilChanged(),
       switchMap(term =>
-        this.citiesService.getAllCities(term).pipe(
+        this.cityService.getAllCities(term).pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {
             this.searchFailed = true;
@@ -30,7 +30,7 @@ export class SearchBarComponent implements OnInit {
 
   searchNewCity = (): any => {
     const inputValue = (document.getElementById('typeahead-http') as HTMLInputElement).value;
-    console.log(inputValue);
+    return inputValue;
   }
 
   ngOnInit(): void {

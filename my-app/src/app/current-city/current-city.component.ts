@@ -17,13 +17,8 @@ export class CurrentCityComponent implements OnInit {
   windSpeed: number;
   weatherMain: string;
   weatherDesc: string;
-  currentCityName: string;
 
   constructor(private cityService: CitiesService) {
-  }
-
-  getCityByParameter = (): void => {
-    // On click search call this function with the search city
   }
 
   ngOnInit() {
