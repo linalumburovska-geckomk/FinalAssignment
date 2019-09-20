@@ -1,3 +1,60 @@
 <div class="jumbotron text-center">
   <h1> {{ cityName }}, {{ country }}</h1>
 </div>
+
+<div class="container">
+  <div class="row mt-5 w-75 mx-auto">
+    <div class="col">
+      <h3>Temperature</h3>
+      <p class="m-4 temperature"> {{ temp }} &#x2103;</p>
+      <hr class="ml-n3 mt-2">
+      <div>
+        <div class="dot position-absolute mt-n4 ml-3"></div>
+        <div>{{ minTemp }} &#x2103;</div>
+      </div>
+      <div class="position-absolute mt-n5 maxTemp">
+        <div class="dot ml-n5"></div>
+        <div class="ml-n5">{{ maxTemp }} &#x2103;</div>
+      </div>
+      <h4 class="mx-auto mt-5">Time: {{ time }}</h4>
+    </div>
+    <div class="col ml-5">
+      <h4>{{ weatherMain }}, {{ weatherDesc }}</h4>
+      <img class="ml-4" id="selectedCity" />
+      <div class="row mt-4">
+        <span class="font-italic">Humidity:</span> <span class="ml-2"> {{ humidity }} % </span>
+      </div>
+      <div class="row mt-3">
+        <span class="font-italic">Wind speed:</span> <span class="ml-2"> {{ windSpeed }} km/h </span>
+      </div>
+      <div class="row mt-4">
+        <span class="font-italic">Clouds:</span> <span class="ml-2"> {{ clouds }} % </span>
+      </div>
+    </div>
+    <div class="col ml-5">
+      <h4>Tomorrow weather</h4>
+      <div class="row mt-3  ml-3">
+        <span class="font-italic">Temperature: </span> <span class="ml-2"> {{ tomorrowTemp }} &#x2103; </span>
+      </div>
+      <div class="row mt-3 ml-3">
+        <span class="font-italic">Max temperature: </span> <span class="ml-2"> {{ tomorrowMaxTemp }} &#x2103; </span>
+      </div>
+      <div class="row mt-3 ml-3">
+        <span class="font-italic">Min temperature: </span> <span class="ml-2"> {{ tomorrowMinTemp }} &#x2103; </span>
+      </div>
+      <div class="row mt-3 ml-3">
+        <span class="font-italic">Humidity:</span> <span class="ml-2"> {{ tomorrowHumidity }} % </span>
+      </div>
+      <div class="row mt-3 ml-3">
+        <span class="font-italic">Wind speed:</span> <span class="ml-2"> {{ tomorrowWindSpeed }} km/h </span>
+      </div>
+      <div class="row mt-3 ml-3">
+        <span class="font-italic">Clouds:</span> <span class="ml-2"> {{ tomorrowClouds }} % </span>
+      </div>
+      <div class="row mt-3 ml-3">
+        <h5>{{ tomorrowWeatherMain }}, {{ tomorrowWeatherDesc }}</h5>
+        <img class="ml-4" id="tomorrowWeather" />
+      </div>
+    </div>
+  </div>
+</div>

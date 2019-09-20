@@ -17,6 +17,7 @@ export class CurrentCityComponent implements OnInit {
   windSpeed: number;
   weatherMain: string;
   weatherDesc: string;
+  time: any;
 
   constructor(private cityService: CitiesService) {
   }
@@ -43,10 +44,20 @@ export class CurrentCityComponent implements OnInit {
             this.windSpeed = cityData.wind.speed;
             this.weatherMain = cityData.weather[0].main;
             this.weatherDesc = cityData.weather[0].description;
+            this.time = this.convertTime(cityData.dt);
             const imgUrl: string  = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
             document.getElementById('weatherImage').setAttribute('src', imgUrl);
           });
       });
+  }
+
+  convertTime = (unixTimestamp: number): string => {
+    const date = new Date(unixTimestamp * 1000);
+    const hours = date.getHours();
+    const minutes = '0' + date.getMinutes();
+    const seconds = '0' + date.getSeconds();
+    const formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return formattedTime;
   }
 
 }
