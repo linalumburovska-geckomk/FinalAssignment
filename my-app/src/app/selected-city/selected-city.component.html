@@ -22,7 +22,7 @@
         <div class="dot ml-n5"></div>
         <div class="ml-n5">{{ maxTemp }} &#x2103;</div>
       </div>
-      <h4 class="mx-auto mt-5">Time: {{ time }}</h4>
+      <h4 class="mx-auto mt-5 text-center">Time:</h4><span class="ml-2">{{ time * 1000 | date: 'medium' }}</span>
     </div>
     <div class="col ml-5">
       <h4>{{ weatherMain }}, {{ weatherDesc }}</h4>

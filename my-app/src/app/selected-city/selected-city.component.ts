@@ -50,7 +50,7 @@ export class SelectedCityComponent implements OnInit {
         this.weatherMain = cityData.weather[0].main;
         this.weatherDesc = cityData.weather[0].description;
         this.clouds = cityData.clouds.all;
-        this.time = this.convertTime(cityData.dt);
+        this.time = cityData.dt;
         const imgUrl: string = 'http://openweathermap.org/img/wn/' + cityData.weather[0].icon + '@2x.png';
         document.getElementById('selectedCity').setAttribute('src', imgUrl);
       });
@@ -71,15 +71,6 @@ export class SelectedCityComponent implements OnInit {
         const imgUrl: string = 'http://openweathermap.org/img/wn/' + getTomorrowData.weather[0].icon + '@2x.png';
         document.getElementById('tomorrowWeather').setAttribute('src', imgUrl);
       });
-  }
-
-  convertTime = (unixTimestamp: number): string => {
-    const date = new Date(unixTimestamp * 1000);
-    const hours = date.getHours();
-    const minutes = '0' + date.getMinutes();
-    const seconds = '0' + date.getSeconds();
-    const formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    return formattedTime;
   }
 
   back = (): void => {

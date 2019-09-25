@@ -30,8 +30,8 @@
       </div>
     </div>
     <div class="col ml-5">
-      <h4>Time: {{ time }}</h4>
-      <h5 class="mt-3">{{ weatherMain }}, {{ weatherDesc }}</h5>
+      <h5 class="d-inline">Time: </h5> <span>{{ time * 1000 | date: 'medium' }}</span>
+      <h4 class="mt-3">{{ weatherMain }}, {{ weatherDesc }}</h4>
       <img width="200px" height="200px" id="weatherImage" />
     </div>
   </div>

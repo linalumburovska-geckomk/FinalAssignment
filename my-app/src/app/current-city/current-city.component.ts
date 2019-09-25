@@ -44,7 +44,7 @@ export class CurrentCityComponent implements OnInit {
             this.windSpeed = cityData.wind.speed;
             this.weatherMain = cityData.weather[0].main;
             this.weatherDesc = cityData.weather[0].description;
-            this.time = this.convertTime(cityData.dt);
+            this.time = cityData.dt;
             const imgUrl: string  = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
             document.getElementById('weatherImage').setAttribute('src', imgUrl);
           });
