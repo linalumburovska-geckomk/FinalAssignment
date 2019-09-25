@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CitiesService} from '../cities.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-selected-city',
@@ -29,7 +30,7 @@ export class SelectedCityComponent implements OnInit {
   tomorrowWeatherDesc: string;
   tomorrowClouds: string;
 
-  constructor(private cityService: CitiesService) { }
+  constructor(private cityService: CitiesService, private location: Location) { }
 
   ngOnInit() {
     this.cityName = window.location.pathname.split('/')[2];
@@ -79,5 +80,9 @@ export class SelectedCityComponent implements OnInit {
     const seconds = '0' + date.getSeconds();
     const formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     return formattedTime;
+  }
+
+  back = (): void => {
+    this.location.back();
   }
 }

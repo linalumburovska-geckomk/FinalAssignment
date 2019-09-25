@@ -1,5 +1,11 @@
 <div class="jumbotron text-center">
-  <h1> {{ cityName }}, {{ country }}</h1>
+  <span>
+    <button type="button"
+            class="btn btn-info btn-rounded ml-4 d-inline ml-n5 mt-n3 py-1"
+            (click)="back()"
+    >Back</button>
+  </span>
+  <h1 class="d-inline"> {{ cityName }}, {{ country }}</h1>
 </div>
 
 <div class="container">
