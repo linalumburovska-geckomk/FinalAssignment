@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { of} from 'rxjs';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 const PARAMS = new HttpParams({
