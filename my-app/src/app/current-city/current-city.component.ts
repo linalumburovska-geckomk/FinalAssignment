@@ -17,7 +17,7 @@ export class CurrentCityComponent implements OnInit {
   windSpeed: number;
   weatherMain: string;
   weatherDesc: string;
-  time: any;
+  time: string;
 
   constructor(private cityService: CitiesService) {
   }
@@ -49,5 +49,9 @@ export class CurrentCityComponent implements OnInit {
             document.getElementById('weatherImage').setAttribute('src', imgUrl);
           });
       });
+    // Unsubscribe
+    setTimeout(() => {
+      this.cityService.getTmpLocation(lat, long).unsubscribe();
+    }, 1000);
   }
 }

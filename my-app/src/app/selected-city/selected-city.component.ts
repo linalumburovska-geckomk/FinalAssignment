@@ -54,6 +54,10 @@ export class SelectedCityComponent implements OnInit {
         const imgUrl: string = 'http://openweathermap.org/img/wn/' + cityData.weather[0].icon + '@2x.png';
         document.getElementById('selectedCity').setAttribute('src', imgUrl);
       });
+    // Unsubscribe
+    setTimeout(() => {
+      this.cityService.getCityByParameter(cityName).unsubscribe();
+    }, 1000);
   }
 
   getTomorrowWeather = (cityName: string): any => {
@@ -71,6 +75,10 @@ export class SelectedCityComponent implements OnInit {
         const imgUrl: string = 'http://openweathermap.org/img/wn/' + getTomorrowData.weather[0].icon + '@2x.png';
         document.getElementById('tomorrowWeather').setAttribute('src', imgUrl);
       });
+    // Unsubscribe
+    setTimeout(() => {
+      this.cityService.getTomorrowWeather(cityName).unsubscribe();
+    }, 1000);
   }
 
   back = (): void => {
