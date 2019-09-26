@@ -4,12 +4,6 @@ import {Observable, of} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
 
-const PARAMS = new HttpParams({
-  fromObject: {
-    limit: '10'
-  }
-});
-
 @Injectable()
 export class SearchBarService {
 
@@ -17,6 +11,11 @@ export class SearchBarService {
   }
 
   getAllCities(term: string): Observable<string[]> {
+    const PARAMS = new HttpParams({
+      fromObject: {
+        limit: '10'
+      }
+    });
     if (term === '') {
       return of([]);
     }

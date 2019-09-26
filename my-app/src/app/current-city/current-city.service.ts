@@ -7,7 +7,7 @@ export class CurrentCityService {
   constructor(private cityService: CitiesService) {
   }
 
-  getTmpLocation = (lat: number, long: number): Observable<string> => {
+  getTmpLocation = (lat: number, long: number): Observable<object> => {
     return this.cityService.getHttpClient()
       .get(this.cityService.basicUrl + 'weather?lat=' + lat + '&lon=' + long + '&appid=' + this.cityService.appid).pipe();
   }

@@ -9,7 +9,7 @@ export class SelectedCityService {
   constructor(private cityService: CitiesService) {
   }
 
-  getTomorrowWeather = (cityName: string): Observable<string> => {
+  getTomorrowWeather = (cityName: string): Observable<object> => {
     const headers: HttpHeaders = new HttpHeaders();
     headers.set('Content-Type', 'application/json');
     return this.cityService.getHttpClient()

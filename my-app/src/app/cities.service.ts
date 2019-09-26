@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,13 @@ export class CitiesService {
     this.allCities = 'http://geodb-free-service.wirefreethought.com/v1/geo/cities';
   }
 
-  getHttpClient = (): any => {
+  getHttpClient = (): HttpClient => {
     return this.http;
   }
 
-  getCityByParameter = (cityName: string): any => {
+  getCityByParameter = (cityName: string): Observable<object> => {
     const headers: HttpHeaders = new HttpHeaders();
     headers.set('Content-Type', 'application/json');
-    return this.http.get(this.basicUrl + 'weather?q=+' + cityName + '&appid=' + this.appid + '&units=metric', {headers});
+    return this.http.get(this.basicUrl + 'weather?q=+' + cityName + '&appid=' + this.appid + '&units=metric', {headers}).pipe();
   }
 }
