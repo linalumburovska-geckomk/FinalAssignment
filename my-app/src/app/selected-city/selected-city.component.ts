@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CitiesService } from '../cities.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SelectedCityService } from './selected-city.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-selected-city',
   templateUrl: './selected-city.component.html',
   styleUrls: ['./selected-city.component.css']
 })
-export class SelectedCityComponent implements OnInit {
+export class SelectedCityComponent implements OnInit, OnDestroy {
 
   name: string;
   country: string;
@@ -34,6 +36,8 @@ export class SelectedCityComponent implements OnInit {
   tomorrowClouds: string;
   tomorrowImgUrl: string;
 
+  private unsubscribe$: Subject<void> = new Subject();
+
   constructor(
     private cityService: CitiesService,
     private location: Location,
@@ -49,6 +53,7 @@ export class SelectedCityComponent implements OnInit {
 
   getWeather = (cityName: string): any => {
     this.cityService.getCityByParameter(cityName)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((cityData: any) => {
         this.country = cityData.sys.country;
         this.temp = cityData.main.temp;
@@ -66,6 +71,7 @@ export class SelectedCityComponent implements OnInit {
 
   getTomorrowWeather = (cityName: string): any => {
     this.selectedCityService.getTomorrowWeather(cityName)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((cityData: any) => {
         const getTomorrowData = cityData.list[1];
         this.tomorrowTemp = getTomorrowData.main.temp;
@@ -82,5 +88,10 @@ export class SelectedCityComponent implements OnInit {
 
   back = (): void => {
     this.location.back();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

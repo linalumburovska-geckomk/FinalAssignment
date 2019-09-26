@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CurrentCityService } from './current-city.service';
 import { CitiesService } from '../cities.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-current-city',
   templateUrl: './current-city.component.html',
   styleUrls: ['./current-city.component.css']
 })
-export class CurrentCityComponent implements OnInit {
+export class CurrentCityComponent implements OnInit, OnDestroy {
 
   name: string;
   country: string;
@@ -20,6 +22,8 @@ export class CurrentCityComponent implements OnInit {
   weatherDesc: string;
   time: string;
   imgUrl: string;
+
+  private unsubscribe$: Subject<void> = new Subject();
 
   constructor(private currentCityService: CurrentCityService, private cityService: CitiesService) {
   }
@@ -34,6 +38,7 @@ export class CurrentCityComponent implements OnInit {
 
   getWeather = (lat: number, long: number): any => {
     this.currentCityService.getTmpLocation(lat, long)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((name: any ) => {
         this.cityService.getCityByParameter(name.name)
           .subscribe((cityData: any) => {
@@ -50,5 +55,10 @@ export class CurrentCityComponent implements OnInit {
             this.imgUrl = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
           });
       });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
