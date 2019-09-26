@@ -10,6 +10,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectedCityComponent } from './selected-city/selected-city.component';
 import { CurrentCityComponent } from './current-city/current-city.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import {CurrentCityService} from './current-city/current-city.service';
+import {SearchBarService} from './search-bar/search-bar.service';
+import {SelectedCityService} from './selected-city/selected-city.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,12 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [CitiesService],
+  providers: [
+    CitiesService,
+    CurrentCityService,
+    SearchBarService,
+    SelectedCityService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

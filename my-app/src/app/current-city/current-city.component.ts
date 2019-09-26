@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentCityService } from './current-city.service';
 import { CitiesService } from '../cities.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class CurrentCityComponent implements OnInit {
   time: string;
   imgUrl: string;
 
-  constructor(private cityService: CitiesService) {
+  constructor(private currentCityService: CurrentCityService, private cityService: CitiesService) {
   }
 
   ngOnInit() {
@@ -32,7 +33,7 @@ export class CurrentCityComponent implements OnInit {
   }
 
   getWeather = (lat: number, long: number): any => {
-    this.cityService.getTmpLocation(lat, long)
+    this.currentCityService.getTmpLocation(lat, long)
       .subscribe((name: any ) => {
         this.cityService.getCityByParameter(name.name)
           .subscribe((cityData: any) => {
@@ -49,9 +50,5 @@ export class CurrentCityComponent implements OnInit {
             this.imgUrl = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
           });
       });
-    // Unsubscribe
-    setTimeout(() => {
-      this.cityService.getTmpLocation(lat, long).unsubscribe();
-    }, 1000);
   }
 }

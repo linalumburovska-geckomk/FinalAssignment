@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CitiesService} from '../cities.service';
-import {Location} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
+import { CitiesService } from '../cities.service';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { SelectedCityService } from './selected-city.service';
 
 @Component({
   selector: 'app-selected-city',
@@ -33,7 +34,12 @@ export class SelectedCityComponent implements OnInit {
   tomorrowClouds: string;
   tomorrowImgUrl: string;
 
-  constructor(private cityService: CitiesService, private location: Location, private route: ActivatedRoute) { }
+  constructor(
+    private cityService: CitiesService,
+    private location: Location,
+    private route: ActivatedRoute,
+    private selectedCityService: SelectedCityService
+  ) { }
 
   ngOnInit() {
     this.cityName = this.route.snapshot.paramMap.get('cityName');
@@ -56,14 +62,10 @@ export class SelectedCityComponent implements OnInit {
         this.time = cityData.dt;
         this.imgUrl = 'http://openweathermap.org/img/wn/' + cityData.weather[0].icon + '@2x.png';
       });
-    // Unsubscribe
-    setTimeout(() => {
-      this.cityService.getCityByParameter(cityName).unsubscribe();
-    }, 1000);
   }
 
   getTomorrowWeather = (cityName: string): any => {
-    this.cityService.getTomorrowWeather(cityName)
+    this.selectedCityService.getTomorrowWeather(cityName)
       .subscribe((cityData: any) => {
         const getTomorrowData = cityData.list[1];
         this.tomorrowTemp = getTomorrowData.main.temp;
@@ -76,10 +78,6 @@ export class SelectedCityComponent implements OnInit {
         this.tomorrowClouds = getTomorrowData.clouds.all;
         this.tomorrowImgUrl = 'http://openweathermap.org/img/wn/' + getTomorrowData.weather[0].icon + '@2x.png';
       });
-    // Unsubscribe
-    setTimeout(() => {
-      this.cityService.getTomorrowWeather(cityName).unsubscribe();
-    }, 1000);
   }
 
   back = (): void => {
