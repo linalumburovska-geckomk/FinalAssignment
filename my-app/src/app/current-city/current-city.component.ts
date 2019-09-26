@@ -18,6 +18,7 @@ export class CurrentCityComponent implements OnInit {
   weatherMain: string;
   weatherDesc: string;
   time: string;
+  imgUrl: string;
 
   constructor(private cityService: CitiesService) {
   }
@@ -45,8 +46,7 @@ export class CurrentCityComponent implements OnInit {
             this.weatherMain = cityData.weather[0].main;
             this.weatherDesc = cityData.weather[0].description;
             this.time = cityData.dt;
-            const imgUrl: string  = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
-            document.getElementById('weatherImage').setAttribute('src', imgUrl);
+            this.imgUrl = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
           });
       });
     // Unsubscribe

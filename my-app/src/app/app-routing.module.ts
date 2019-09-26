@@ -6,7 +6,7 @@ import {CurrentCityComponent} from './current-city/current-city.component';
 
 const routes: Routes = [
   { path: '', component: CurrentCityComponent },
-  { path: 'detail/:id', component: SelectedCityComponent }
+  { path: 'detail/:cityName', component: SelectedCityComponent }
 ];
 
 @NgModule({

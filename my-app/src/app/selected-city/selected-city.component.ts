@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CitiesService} from '../cities.service';
 import {Location} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-selected-city',
@@ -21,6 +22,7 @@ export class SelectedCityComponent implements OnInit {
   cityName: string;
   clouds: number;
   time: string;
+  imgUrl: string;
   tomorrowTemp: number;
   tomorrowMaxTemp: number;
   tomorrowMinTemp: number;
@@ -29,11 +31,12 @@ export class SelectedCityComponent implements OnInit {
   tomorrowWeatherMain: string;
   tomorrowWeatherDesc: string;
   tomorrowClouds: string;
+  tomorrowImgUrl: string;
 
-  constructor(private cityService: CitiesService, private location: Location) { }
+  constructor(private cityService: CitiesService, private location: Location, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.cityName = window.location.pathname.split('/')[2];
+    this.cityName = this.route.snapshot.paramMap.get('cityName');
     this.getWeather(this.cityName);
     this.getTomorrowWeather(this.cityName);
   }
@@ -51,8 +54,7 @@ export class SelectedCityComponent implements OnInit {
         this.weatherDesc = cityData.weather[0].description;
         this.clouds = cityData.clouds.all;
         this.time = cityData.dt;
-        const imgUrl: string = 'http://openweathermap.org/img/wn/' + cityData.weather[0].icon + '@2x.png';
-        document.getElementById('selectedCity').setAttribute('src', imgUrl);
+        this.imgUrl = 'http://openweathermap.org/img/wn/' + cityData.weather[0].icon + '@2x.png';
       });
     // Unsubscribe
     setTimeout(() => {
@@ -72,8 +74,7 @@ export class SelectedCityComponent implements OnInit {
         this.tomorrowWeatherMain = getTomorrowData.weather[0].main;
         this.tomorrowWeatherDesc = getTomorrowData.weather[0].description;
         this.tomorrowClouds = getTomorrowData.clouds.all;
-        const imgUrl: string = 'http://openweathermap.org/img/wn/' + getTomorrowData.weather[0].icon + '@2x.png';
-        document.getElementById('tomorrowWeather').setAttribute('src', imgUrl);
+        this.tomorrowImgUrl = 'http://openweathermap.org/img/wn/' + getTomorrowData.weather[0].icon + '@2x.png';
       });
     // Unsubscribe
     setTimeout(() => {
