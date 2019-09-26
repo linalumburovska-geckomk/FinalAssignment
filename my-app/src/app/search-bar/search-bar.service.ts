@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CitiesService } from '../cities.service';
-import { of } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
 
@@ -16,7 +16,7 @@ export class SearchBarService {
   constructor(private cityService: CitiesService) {
   }
 
-  getAllCities(term: string): any {
+  getAllCities(term: string): Observable<string[]> {
     if (term === '') {
       return of([]);
     }

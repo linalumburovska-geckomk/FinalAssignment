@@ -51,7 +51,7 @@ export class SelectedCityComponent implements OnInit, OnDestroy {
     this.getTomorrowWeather(this.cityName);
   }
 
-  getWeather = (cityName: string): any => {
+  getWeather = (cityName: string): void => {
     this.cityService.getCityByParameter(cityName)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((cityData: any) => {
@@ -69,7 +69,7 @@ export class SelectedCityComponent implements OnInit, OnDestroy {
       });
   }
 
-  getTomorrowWeather = (cityName: string): any => {
+  getTomorrowWeather = (cityName: string): void => {
     this.selectedCityService.getTomorrowWeather(cityName)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((cityData: any) => {

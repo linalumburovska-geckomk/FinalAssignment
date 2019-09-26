@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CurrentCityService } from './current-city.service';
 import { CitiesService } from '../cities.service';
-import { Subject } from 'rxjs';
+import { Subject} from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -36,7 +36,7 @@ export class CurrentCityComponent implements OnInit, OnDestroy {
     });
   }
 
-  getWeather = (lat: number, long: number): any => {
+  getWeather = (lat: number, long: number): void => {
     this.currentCityService.getTmpLocation(lat, long)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((name: any ) => {

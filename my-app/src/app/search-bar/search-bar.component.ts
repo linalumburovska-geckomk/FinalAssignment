@@ -15,7 +15,7 @@ export class SearchBarComponent {
   constructor(private searchBarService: SearchBarService) {
   }
 
-  search = (text$: Observable<string>): any =>
+  search = (text$: Observable<string>): Observable<any> =>
     text$.pipe(
       distinctUntilChanged(),
       switchMap(term =>
@@ -28,7 +28,7 @@ export class SearchBarComponent {
       ),
     )
 
-  searchNewCity = (): any => {
+  searchNewCity = (): string => {
     const inputValue = (document.getElementById('typeahead-http') as HTMLInputElement).value;
     return inputValue;
   }
