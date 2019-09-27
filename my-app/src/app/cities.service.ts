@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,11 @@ export class CitiesService {
   }
 
   getCityByParameter = (cityName: string): Observable<object> => {
+    const PARAMS = new HttpParams();
     const headers: HttpHeaders = new HttpHeaders();
     headers.set('Content-Type', 'application/json');
-    return this.http.get(this.basicUrl + 'weather?q=+' + cityName + '&appid=' + this.appid + '&units=metric', {headers}).pipe();
+    return this.http.get(this.basicUrl + 'weather?', {
+      params: PARAMS.set('q', cityName).set('appid', this.appid).set('units', 'metric')
+    }).pipe();
   }
 }

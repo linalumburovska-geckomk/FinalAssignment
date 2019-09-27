@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CurrentCityService } from './current-city.service';
 import { CitiesService } from '../cities.service';
-import { Subject} from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {forkJoin, Observable, Subject, Subscription} from 'rxjs';
+import {flatMap, map, mergeMap, takeUntil, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-current-city',
@@ -23,7 +23,7 @@ export class CurrentCityComponent implements OnInit, OnDestroy {
   time: string;
   imgUrl: string;
 
-  private unsubscribe$: Subject<void> = new Subject();
+  private unsubscribe$: Subscription;
 
   constructor(private currentCityService: CurrentCityService, private cityService: CitiesService) {
   }
@@ -36,12 +36,11 @@ export class CurrentCityComponent implements OnInit, OnDestroy {
     });
   }
 
-  getWeather = (lat: number, long: number): void => {
-    this.currentCityService.getTmpLocation(lat, long)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((name: any ) => {
-        this.cityService.getCityByParameter(name.name)
-          .subscribe((cityData: any) => {
+  getWeather = (lat: number, long: number): any => {
+    this.unsubscribe$ = this.currentCityService.getTmpLocation(lat, long).pipe(
+      mergeMap((data: any) => {
+        return this.cityService.getCityByParameter(data.name).pipe(
+          mergeMap((cityData: any) => {
             this.name = cityData.name;
             this.country = cityData.sys.country;
             this.temp = cityData.main.temp;
@@ -53,12 +52,14 @@ export class CurrentCityComponent implements OnInit, OnDestroy {
             this.weatherDesc = cityData.weather[0].description;
             this.time = cityData.dt;
             this.imgUrl = 'http://openweathermap.org/img/wn/' +  cityData.weather[0].icon + '@2x.png';
-          });
-      });
+            return this.cityService.getCityByParameter(cityData.name);
+          })
+        );
+      })
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+    this.unsubscribe$.unsubscribe();
   }
 }
